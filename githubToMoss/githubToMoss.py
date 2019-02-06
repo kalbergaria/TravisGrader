@@ -46,7 +46,7 @@ def createDirAndSetAsWorking(dirName):
 
 # Get the file(s) of interest from each student and make
 # local copies of them
-def getFilesGithubAndMossCheck(gitOrg, mossUserId, studentsCSV, assignmentName, gitFileNamesString, gitFilePathsString):
+def getStudentGithubFilesAndMossCheck(gitOrg, mossUserId, studentsCSV, assignmentName, gitFileNamesString, gitFilePathsString):
     repoNames = getRepoNamesForAssignment(studentsCSV, assignmentName)
 
     # Separates the file names and file paths obtained from the env vars
@@ -117,4 +117,4 @@ def getFilesGithubAndMossCheck(gitOrg, mossUserId, studentsCSV, assignmentName, 
     # Go back to the active working directory before the fn was called
     os.chdir('..')
 
-getFilesGithubAndMossCheck(gitOrg, mossUserId, studentsCSV, assignmentName, gitFileNamesString, gitFilePathsString)
+getStudentGithubFilesAndMossCheck(gitOrg, mossUserId, studentsCSV, assignmentName, gitFileNamesString, gitFilePathsString)
