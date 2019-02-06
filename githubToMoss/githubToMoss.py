@@ -51,6 +51,7 @@ def getFilesGithubAndMossCheck(gitOrg, mossUserId, studentsCSV, assignmentName, 
 
     # Separates the file names and file paths obtained from the env vars
     # into separate file names and paths per the ";" delimiter
+    # Todo: Probably want to change it so path and filename are obtained from one env var
     gitFileNamesList = gitFileNamesString.split('; ')
     gitFilePathsList = gitFilePathsString.split('; ')
 
@@ -101,15 +102,17 @@ def getFilesGithubAndMossCheck(gitOrg, mossUserId, studentsCSV, assignmentName, 
         m.addFilesByWildcard(assignmentName + '*')
 
         # Send the files to be checked by Moss
-        print('Sending files to Moss server... Awaiting results...')
+        print('Sending files to Moss server... Awaiting results (this may take a while)... ')
         reportUrl = m.send()
 
         # Save the HTML report in the current folder and download the webpage
         m.saveWebPage(reportUrl, assignmentName + "Report.html")
-        mosspy.download_report(reportUrl, "report/", connections=8, log_level=10) # log_level=10 for debug (20 to disable)
+        mosspy.download_report(reportUrl, "report/", connections=8, log_level=20) # log_level=10 for debug (20 to disable)
 
         # Leave the created directory
         os.chdir('..')
+
+        print('Moss check complete!!!')
     
     # Go back to the active working directory before the fn was called
     os.chdir('..')
