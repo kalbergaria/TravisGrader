@@ -3,6 +3,12 @@
 # directories will always end with "-MossCheck"
 *-MossCheck/
 
+# Visual Studio Code Settings
+.vscode/
+
+# The csv file that can be otionally created by singleTravis.py
+*Scores.csv
+
 projects.csv
 roster.csv
 

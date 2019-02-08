@@ -35,12 +35,21 @@ def loadProjects(path):
                 projects.append(ln['projectName'])
     return projects
 
-def gradeAssignments(repoName):
+def gradeAssignments(repoName, exportToCSV=True):
+    scores=[]
     for stu in students:
         try:
-            getScore(stu,repoName)
+            scores.append(getScore(stu,repoName))
         except Exception as e:
             print ("{0:20}: {1}".format(stu,"DNE"))
+
+    if exportToCSV == True:
+        with open(repoName + 'Scores.csv', 'w') as csvFile:
+            csvWriter = csv.writer(csvFile, delimiter=',', lineterminator='\n')
+            for stu, score in zip(students, scores):
+                csvWriter.writerow([stu, score])
+
+
 
 def getScore(student,project,classname=className):
     
@@ -64,6 +73,7 @@ def getScore(student,project,classname=className):
         xmlstring = last_log.body[last_log.body.find(findString)+len(findString)+5:]
         score = parseLog(xmlstring)
     print("{0:20}: {1}".format(student,score))
+    return score
 
 
 
